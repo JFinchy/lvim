@@ -9,9 +9,11 @@ an executable
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
+lvim.opt.foldmethod = "syntax"
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
+-- lvim.colorscheme = "onedarker"
+lvim.colorscheme = "everforest"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -28,11 +30,11 @@ lvim.keys.normal_mode["n"] = "nzzzv"
 lvim.keys.normal_mode["N"] = "Nzzzv"
 
 -- next greatest remap ever : asbjornHaland REGISTER STUFF
-lvim.keys.normal_mode["<leader>Y"] = '[["+Y]]'
-lvim.keys.normal_mode["<leader>y"] = '[["+y]]'
-lvim.keys.normal_mode["<leader>d"] = '[["_d]]'
-lvim.keys.visual_mode["<leader>y"] = '[["+y]]'
-lvim.keys.visual_mode["<leader>d"] = '[["_d]]'
+lvim.keys.normal_mode["<leader>Y"] = { '[["+Y]]', { desc = "which_key_ignore" } }
+lvim.keys.normal_mode["<leader>y"] = { '[["+y]]', { desc = "which_key_ignore" } }
+lvim.keys.normal_mode["<leader>d"] = { '[["_d]]', { desc = "which_key_ignore" } }
+lvim.keys.visual_mode["<leader>y"] = { '[["+y]]', { desc = "which_key_ignore" } }
+lvim.keys.visual_mode["<leader>d"] = { '[["_d]]', { desc = "which_key_ignore" } }
 
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
@@ -42,7 +44,7 @@ lvim.keys.normal_mode["<S-x>"] = ":BufferKill<CR>"
 -- override a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
 
-lvim.keys.normal_mode["<leader>m"] = ":SymbolsOutline"
+lvim.keys.normal_mode["<leader>m"] = ":SymbolsOutline<CR>"
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -79,12 +81,19 @@ lvim.builtin.which_key.mappings["S"] = {
   l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
   Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
 }
-lvim.builtin.which_key.setup = { ignore_missing = true }
 lvim.builtin.which_key.mappings["t"] = {
   name = "Todo",
   q = { ":TodoQuickFix", "Quick Fix" },
   t = { ":TodoTelescope", "Telescope" }
 }
+lvim.builtin.which_key.mappings["G"] = {
+  name = "Grep",
+  d = { ":GrepRoot ", "Root directory" },
+  r = { ":Replace", "Replace" },
+  s = { "Grep ", "Text" }
+
+}
+
 
 
 
@@ -281,11 +290,6 @@ lvim.plugins = {
   -- edit and review GH issueds and pull requests
   {
     "pwntester/octo.nvim",
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'kyazdani42/nvim-web-devicons',
-    },
     config = function()
       require("octo").setup()
     end,
@@ -487,7 +491,7 @@ lvim.plugins = {
   }, {
     'kosayoda/nvim-lightbulb',
     requires = 'antoinemadec/FixCursorHold.nvim',
-  }, { 'simrat39/rust-tools.nvim' }
+  }, { 'simrat39/rust-tools.nvim' }, { 'sainnhe/everforest' }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
